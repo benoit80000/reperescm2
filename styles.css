@@ -135,3 +135,70 @@ details summary{cursor:pointer;font-weight:700;color:var(--accent)}
 .kpi b{font-family:var(--f-display);font-size:2rem;color:var(--accent);font-variant-numeric:tabular-nums}
 @media (prefers-reduced-motion:no-preference){.feedback{animation:pop .25s ease-out}@keyframes pop{from{transform:translateY(4px)}to{transform:none}}}
 @media (max-width:480px){.sheet{padding-left:40px}.prompt{font-size:1.08rem}h1{font-size:1.55rem}}
+
+/* ===== PC et tablette ===== */
+.stack{display:flex;flex-direction:column;gap:18px}
+button,.choice,.seg button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+input[type=text],input[type=number]{font-size:1rem}
+/* Cibles tactiles confortables (doigt) */
+nav.tabs button,.chips button,.levels button,.prio button{min-height:44px}
+button.btn{min-height:44px}
+.btn.sm{min-height:40px}
+.list button.cbtn{min-height:48px}
+.seg button{min-height:44px}
+.flu span{padding:3px 2px}
+@media (pointer:coarse){
+  button.btn{min-height:48px}.choice{min-height:52px}.flu{line-height:2.4}
+  .dots span{width:14px;height:14px}
+}
+/* Survol et clavier : seulement avec une souris/un trackpad */
+@media (hover:hover) and (pointer:fine){
+  button{transition:background-color .12s,border-color .12s,color .12s}
+  button.btn:not(:disabled):hover{filter:brightness(1.12)}
+  button.btn.ghost:not(:disabled):hover{background:var(--accent-soft)}
+  nav.tabs button:hover{color:var(--accent);background:var(--accent-soft)}
+  .choice:not(:disabled):hover,.prio button:hover,.chips button:hover,.levels button:hover{border-color:var(--accent)}
+  .list button.cbtn:hover{background:var(--accent-soft)}
+  .flu span:hover{background:var(--accent-soft)}
+  .seg button:hover:not([aria-checked=true]){background:var(--accent-soft)}
+}
+.choice:focus-visible,.prio button:focus-visible,.chips button:focus-visible,.levels button:focus-visible,.cbtn:focus-visible,.seg button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* Tablette portrait et plus */
+@media (min-width:700px){
+  .wrap{max-width:1000px;padding-block:28px 64px;gap:24px}
+  h1{font-size:2.2rem}
+  nav.tabs{gap:8px}
+  nav.tabs button{flex:1 1 0;font-size:1.05rem;padding:12px 14px;text-align:center}
+  .panel{padding:22px}
+  .fiche-row{flex-direction:row;align-items:center;justify-content:space-between;gap:16px}
+  .fiche-row>span{flex:1 1 40%}
+  .fiche-row .levels{flex:0 1 auto;justify-content:flex-end}
+  main .sheet{width:100%;max-width:880px;margin-inline:auto;padding:28px 24px 28px 56px;
+    background-image:linear-gradient(90deg,transparent 40px,var(--margin) 40px,var(--margin) 42px,transparent 42px),
+    repeating-linear-gradient(180deg,transparent 0 31px,var(--seyes-strong) 31px 32px),
+    repeating-linear-gradient(180deg,transparent 0 7px,var(--seyes) 7px 8px)}
+  .prompt{font-size:1.35rem}
+  .big{font-size:1.9rem}
+  .choice{font-size:1.15rem;padding:14px 16px}
+  .answer input{font-size:1.5rem}
+  .textbox{max-height:420px;font-size:1.1rem}
+  .list{columns:2;column-gap:28px}
+  .list .crow{break-inside:avoid}
+  .timer{font-size:3rem}
+}
+/* Ordinateur et tablette paysage */
+@media (min-width:1100px){
+  .wrap{max-width:1180px}
+  .grid2{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))}
+  .stack.cols{display:grid;grid-template-columns:1fr 1fr;align-items:start}
+  .stack.cols>:first-child,.stack.cols>:nth-child(4),.stack.cols>:last-child{grid-column:1/-1}
+}
+/* Tablette paysage peu haute : on garde la question visible sans trop défiler */
+@media (orientation:landscape) and (max-height:620px){
+  .wrap{padding-block:12px 32px;gap:14px}
+  main .sheet{padding-block:16px;gap:12px}
+}
+@media (max-width:480px){.list{columns:1}}
+.comp .pill{align-self:start}
+.list .crow:first-child{border-top:none}

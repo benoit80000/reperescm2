@@ -321,7 +321,7 @@ function compRow(c){const L=level(c.id),[lab,cls,col]=LV[L.lv];const pct=L.p?Mat
   return `<div class="comp"><span class="nm">${c.n}</span><span class="pill ${cls}">${lab}</span><span class="bar"><i style="width:${L.p?pct:0}%;background:${col}"></i></span><span class="meta"><span>${meta}</span><span>${L.src?"d’après : "+L.src:""}</span></span></div>`}
 function renderProgres(){const pr=priorities().filter(x=>x.L.lv!=="s").slice(0,4);const nm=S.name?S.name:"ton enfant";
   const any=COMPS.some(c=>level(c.id).lv!=="n");
-  return `<section style="display:flex;flex-direction:column;gap:18px">
+  return `<section class="stack">
   <div class="panel"><h2>À travailler en priorité</h2>
    ${any?`<p class="small">Touchez une compétence pour lancer 10 questions dessus.</p>`:`<p>Pour commencer, faites un <b>bilan rapide</b> (2 questions par compétence) ou reportez les résultats de la <b>fiche de restitution</b> remise par l’enseignant en septembre.</p>`}
    <div class="prio">${pr.map(x=>`<button data-go="${x.c.id}"><span class="pill ${LV[x.L.lv][1]}">${LV[x.L.lv][0]}</span> ${x.c.n}</button>`).join("")}</div>
@@ -344,7 +344,7 @@ function catList(){return COMPS.filter(c=>c.s===sel.s&&(sel.d==="all"||c.d===sel
 function renderEntrainer(){const doms=[...new Set(COMPS.filter(c=>c.s===sel.s).map(c=>c.d))];if(sel.d!=="all"&&!doms.includes(sel.d))sel.d="all";
   const list=catList(),train=list.filter(c=>c.g),catName=sel.d==="all"?"toute la matière":sel.d.toLowerCase();
   const row=c=>{const L=level(c.id);return `<div class="crow"><button class="cbtn" data-go="${c.id}"><span>${c.n}${c.hors?`<span class="tag">Programme</span>`:""}</span><span class="pill ${LV[L.lv][1]}">${LV[L.lv][0]}</span></button>${CHRONO[c.id]?`<button class="btn ghost sm" data-chrono="${c.id}">Chrono</button>`:""}</div>`};
-  return `<section style="display:flex;flex-direction:column;gap:18px">
+  return `<section class="stack">
   <div class="panel">
    <h2>Que veux-tu travailler&nbsp;?</h2>
    <div class="seg" role="radiogroup" aria-label="Matière">${Object.entries(SUBJ).map(([k,v])=>`<button role="radio" data-s="${k}" aria-checked="${sel.s===k}">${v}</button>`).join("")}</div>
@@ -370,7 +370,7 @@ function renderFiche(){return `<section class="panel"><h2>Résultats de septembr
    ${[["","Non renseigné","n"],["b","À besoins","b"],["f","Fragile","f"],["s","Satisfaisant","s"]].map(([k,l,cl])=>`<button class="${cl}" data-k="${k}" aria-pressed="${v===k}">${l}</button>`).join("")}</div></div>`}).join("")}</div></section>`}
 function bindFiche(){document.querySelectorAll(".levels").forEach(g=>g.querySelectorAll("button").forEach(b=>b.onclick=()=>{const id=g.dataset.id,k=b.dataset.k;if(k)S.teacher[id]=k;else delete S.teacher[id];save();g.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b))}))}
 
-function renderInfos(){return `<section style="display:flex;flex-direction:column;gap:18px">
+function renderInfos(){return `<section class="stack cols">
  <div class="panel"><h2>Les évaluations Repères CM2 2026</h2>
  <p>Passées en classe entre le 7 et le 18 septembre 2026, en français et en mathématiques. Les exercices sont les mêmes qu’en 2025, sauf un exercice adapté aux nouveaux programmes. Pour chaque compétence, deux seuils séparent trois groupes : <span class="pill lv-besoin">à besoins</span> <span class="pill lv-fragile">fragile</span> <span class="pill lv-ok">satisfaisant</span>.</p>
  <p class="small">Les exercices de cette application sont originaux et reprennent le format et les difficultés décrits dans le guide officiel ; ce ne sont pas les items de l’évaluation.</p></div>
@@ -463,6 +463,14 @@ function bindFluence(){fl={last:-1,run:false,left:60,iv:null};const spans=[...do
   $("#quitF").onclick=()=>{clearInterval(fl.iv);session=null;setView("entrainer")};
   $("#saveF").onclick=()=>{const wpm=Math.max(0,fl.last+1-(parseInt($("#err").value)||0));S.flu.push({wpm,d:Date.now()});save();
     const lv=wpm<90?"b":wpm<110?"f":"s";$("#fb").innerHTML=`<div class="feedback ${lv==="s"?"ok":"ko"}"><strong>${wpm} mots lus correctement en 1 minute</strong><span>${lv==="s"?"Objectif atteint : la lecture est fluide.":lv==="f"?"Proche de l’objectif. Relire le même texte 3 jours de suite aide beaucoup.":"Lire chaque jour à voix haute, un court texte relu plusieurs fois, permet d’automatiser la reconnaissance des mots."}</span></div>`;$("#saveF").disabled=true}}
+
+/* Raccourcis clavier (ordinateur, tablette avec clavier) : 1 à 9 choisissent une réponse, Entrée valide. */
+document.addEventListener("keydown",e=>{
+  if(e.ctrlKey||e.metaKey||e.altKey||view!=="entrainer"||!session||session.done||session.chrono||session.fluence)return;
+  const t=e.target,tag=t&&t.tagName;if(tag==="INPUT"||tag==="TEXTAREA"||tag==="SUMMARY")return;
+  const valid=$("#valid");if(!valid)return;
+  if(/^[1-9]$/.test(e.key)){const b=document.querySelector(`.choice[data-k="${+e.key-1}"]`);if(b&&!b.disabled){e.preventDefault();b.click()}}
+  else if(e.key==="Enter"&&tag!=="BUTTON"&&!valid.disabled){e.preventDefault();valid.click()}});
 
 /* ---------- rendu ---------- */
 function render(){const v=$("#view");

@@ -9,7 +9,7 @@ Site statique : aucun serveur, aucune base de données, aucune étape de compila
 | Fichier | Rôle |
 | --- | --- |
 | `index.html` | Page de l’application |
-| `styles.css` | Mise en page (thème clair et sombre) |
+| `styles.css` | Mise en page adaptative (téléphone, tablette, ordinateur ; thème clair et sombre) |
 | `app.js` | Exercices, séances, épreuves chrono, suivi des progrès |
 | `manifest.webmanifest`, `icons/` | Installation sur l’écran d’accueil du téléphone |
 | `sw.js` | Fonctionnement hors connexion |
@@ -57,3 +57,10 @@ Après une modification, changez `VERSION` en haut de `sw.js` (par exemple `repe
 - Guide des scores Repères CM2 2026 : https://eduscol.education.gouv.fr/sites/default/files/document/26cm2guidedesscores-129826.pdf
 
 Les exercices sont originaux : ils reprennent le format et les difficultés décrits dans le guide officiel, pas les items de l’évaluation.
+
+## Appareils compatibles
+
+L’application s’adapte à l’écran : téléphone, tablette (portrait et paysage) et ordinateur.
+- Tactile : boutons d’au moins 44 px, pas de zoom au double toucher.
+- Souris/clavier : survol des boutons, focus visible, touches `1` à `9` pour choisir une réponse et `Entrée` pour valider.
+- Installable comme application sur tablette et ordinateur (Chrome, Edge, Safari), orientation libre.
