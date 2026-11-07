@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mon cahier Repères CM2</title>
+<meta name="description" content="Révisions de CM2 calquées sur les évaluations nationales Repères : français, mathématiques, épreuves chrono et suivi des progrès.">
+<meta name="theme-color" content="#1d3a8a" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#11151f" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Repères CM2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Mon cahier Repères CM2</h1>
+      <p class="small">Entraînement calqué sur les 16 compétences des évaluations nationales de septembre 2026</p>
+    </div>
+    <div class="name"><label for="childName">Prénom</label><input id="childName" type="text" placeholder="Prénom de l’enfant" autocomplete="off"></div>
+  </header>
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-v="progres" aria-selected="true">Mes progrès</button>
+    <button role="tab" data-v="entrainer" aria-selected="false">S’entraîner</button>
+    <button role="tab" data-v="fiche" aria-selected="false">Résultats de septembre</button>
+    <button role="tab" data-v="infos" aria-selected="false">L’évaluation</button>
+  </nav>
+  <main id="view"></main>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>

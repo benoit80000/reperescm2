@@ -1,0 +1,16 @@
+{
+  "name": "Mon cahier Repères CM2",
+  "short_name": "Repères CM2",
+  "description": "Révisions de CM2 calquées sur les évaluations nationales Repères.",
+  "lang": "fr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f6f7fb",
+  "theme_color": "#1d3a8a",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "reperes-cm2",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Application de révision CM2 calquée sur les évaluations nationales Repères 2026.",
+  "scripts": {
+    "dev": "npx serve .",
+    "deploy": "npx vercel --prod"
+  }
+}
